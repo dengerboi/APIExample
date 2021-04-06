@@ -100,5 +100,27 @@ namespace APIExample.Controllers
             }
             return false;
         }
+        [HttpDelete]
+        public bool Delete(int id)
+        {
+            try
+            {
+                var del = db.Employees.Where(x => x.EmpID == id).SingleOrDefault();
+                if (del == null)
+                    throw new Exception("ID can not be null");
+                else
+                {
+                    db.Employees.Remove(del);
+                    var res = db.SaveChanges();
+                    if (res > 0)
+                        return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return false;
+        }
     }
 }
