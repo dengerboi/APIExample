@@ -8,9 +8,11 @@ using APIExample.Models;
 
 namespace APIExample.Controllers
 {//As webapi does not have View() its contoller return primitive value
+    [Route("api/EmployeeAPI")]
     public class EmployeeController : ApiController
     {
         LTIMVCEntities db = new LTIMVCEntities();
+        [Route("api/EmployeeAPI/GetAllEmployees")]
         [HttpGet]
         public IEnumerable<Employee> Get()
         {
@@ -24,6 +26,7 @@ namespace APIExample.Controllers
                 throw ex;
             }
         }
+        [Route("api/EmployeeAPI/GetEmployeesByID/{id}")]
         [HttpGet]
         public Employee Get(int id)
         {
@@ -40,6 +43,7 @@ namespace APIExample.Controllers
                 throw ex;
             }
         }
+        [Route("api/EmployeeAPI/Login/{name}/{pwd}")] //2 parameters in {}
         [HttpGet]
         public string Get(string name, string pwd)
         {
@@ -58,8 +62,9 @@ namespace APIExample.Controllers
             }
             return result;
         }
+        [Route("api/EmployeeAPI/InsertEmployee")]
         [HttpPost]
-        public bool Post(Employee emp)
+        public bool Post([FromBody]Employee emp)//frombody says that the input comes from the post
         {
             try
             {
@@ -74,8 +79,9 @@ namespace APIExample.Controllers
             }
             return false;
         }
+        [Route("api/EmployeeAPI/UpdateEmployee/{id}")]
         [HttpPut]
-        public bool Put(int id, Employee newemp)
+        public bool Put(int id,[FromBody] Employee newemp)
         {
             try
             {
@@ -100,6 +106,7 @@ namespace APIExample.Controllers
             }
             return false;
         }
+        [Route("api/EmployeeAPI/DeleteEmployee/{id}")]
         [HttpDelete]
         public bool Delete(int id)
         {
