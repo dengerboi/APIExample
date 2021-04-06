@@ -5,9 +5,11 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using APIExample.Models;
+using System.Web.Http.Cors;//to use [EnableCors]
 
 namespace APIExample.Controllers
 {//As webapi does not have View() its contoller return primitive value
+    [EnableCors(origins:"*",headers:"*",methods:"*")]
     [Route("api/EmployeeAPI")]
     public class EmployeeController : ApiController
     {

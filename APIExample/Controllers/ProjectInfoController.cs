@@ -5,9 +5,11 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;//namespace for WEB API
 using APIExample.Models;
+using System.Web.Http.Cors;
 
 namespace APIExample.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Route("api/ProjectInfo")]
     public class ProjectInfoController : ApiController // inherits from ApiContoller
     {
