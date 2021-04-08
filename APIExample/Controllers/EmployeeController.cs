@@ -16,14 +16,17 @@ namespace APIExample.Controllers
         LTIMVCEntities db = new LTIMVCEntities();
         [Route("api/EmployeeAPI/GetAllEmployees")]
         [HttpGet]
-        public IEnumerable<Employee> Get()
+        public IEnumerable<EmpProjectModel> Get()
         {
-            //retireves all the employees from list
             try
-            { 
-            return db.Employees.ToList();
+            {
+                var data = from e in db.Employees
+                           join p in db.ProjectInfoes
+                           on e.projid equals p.projid
+                           select new EmpProjectModel { EmpID = e.EmpID, EmpName = e.EmpName, Dept = e.Dept, Desg = e.Desg, Salary = (double)e.Salary, projid = (int)e.projid, password = e.password };
+                return data;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
